@@ -18,10 +18,6 @@ public class ValidatorBusiness {
 
 	private static final String[] MUTAN_SEQUENCE = { "AAAA", "TTTT", "CCCC", "GGGG" };
 	
-//	public static void main(String[] args) {
-//		ValidatorBusiness vb = new ValidatorBusiness();
-//		System.out.println("is mutant: "+vb.isMutant(new String[]  { "TACGTA", "CTAGTA", "TAGCAA", "TGTTGA", "TAGTGC", "TGCCGA" }));
-//	}
 
 	/**
 	 * 
@@ -161,10 +157,7 @@ class CountObliqueFormSequence implements CountFormSequence<String[], Predicate<
 			int k = i;
 			boolean swithPos = changeDirection(horizontalSize, i, 4);
 			for (int j = 0; j < dna.length; j++) {
-				System.out.print("Posicion["+k+","+j+"] - ");
 				sequence.append(dna[j].charAt(k));
-				System.out.println(" Letra: "+dna[j].charAt(k));
-				
 
 				// if the size is minor than the valid sequence size, get out
 				if ((k - 1 < 0 && swithPos) || ((k + 1) >= horizontalSize && !swithPos))
@@ -178,7 +171,6 @@ class CountObliqueFormSequence implements CountFormSequence<String[], Predicate<
 				}
 
 			}
-			System.out.println(i+": sequence: "+sequence + " - "+test.test(sequence.toString()));
 			if (test.test(sequence.toString()))
 				countMatchSequence++;
 

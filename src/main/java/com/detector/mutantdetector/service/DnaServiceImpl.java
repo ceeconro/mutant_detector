@@ -8,35 +8,33 @@ import com.detector.mutantdetector.Data;
 import com.detector.mutantdetector.entiry.Dna;
 import com.detector.mutantdetector.repository.DnaRepository;
 
+/**
+ * Manage the data to the repository
+ * @author cesar_contreras
+ *
+ */
 @Service
 public class DnaServiceImpl implements DnaService<Dna>{
 	
 	@Autowired
 	DnaRepository dnaRepository;
 
+	/**
+	 * Save an ADN entity object to DN
+	 */
 	@Override	
 	public void save(Dna entity) {
-		// TODO Auto-generated method stub
-		System.out.println("********************************************************************************");
-		System.out.println("********************************************************************************");
-		System.out.println("********************************************************************************");
-		System.out.println("**************************Executing Save Thread*********************************");
-		System.out.println("********************************************************************************");
-		System.out.println("********************************************************************************");
-		System.out.println("********************************************************************************");
 		dnaRepository.save(entity);
-		
 	}
 	
+	/**
+	 * Execute the theads to save data from safe list
+	 */
 	@Async("executorRepository")
 	public void bulkSave() {
 		while(Data.getListDna().size()>0) {
 			Dna dna = Data.remove(0);
-			dnaRepository.save(dna);
-			System.out.println("********************************************************************************");
-			System.out.println("Dna Readed " + dna.isMutant());
-			System.out.println("List Size: "+Data.getListDna().size());
-			System.out.println("********************************************************************************");
+			this.save(dna);
 		}
 	}
 

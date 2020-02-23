@@ -6,7 +6,12 @@ import java.util.List;
 
 import com.detector.mutantdetector.entiry.Dna;
 
-public class Data {
+/**
+ * Store the safe data list of DNA that will be persisted in DB
+ * @author cesar_contreras
+ *
+ */
+public abstract class Data {
 	
 	private static List<Dna> safeList = Collections.synchronizedList(new ArrayList<Dna>());
 	

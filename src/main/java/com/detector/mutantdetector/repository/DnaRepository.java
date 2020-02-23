@@ -5,6 +5,11 @@ import org.springframework.stereotype.Repository;
 
 import com.detector.mutantdetector.entiry.Dna;
 
+/**
+ * dna data persistent
+ * @author cesar_contreras
+ *
+ */
 @Repository
 public interface DnaRepository  extends MongoRepository<Dna, Integer>{
 	

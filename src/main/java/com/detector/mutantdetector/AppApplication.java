@@ -13,6 +13,11 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import com.detector.mutantdetector.entiry.Dna;
 import com.detector.mutantdetector.service.DnaService;
 
+/**
+ * 
+ * @author cesar_contreras
+ *
+ */
 @SpringBootApplication
 @Configuration
 @EnableScheduling
