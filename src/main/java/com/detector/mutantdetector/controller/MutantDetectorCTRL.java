@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.detector.mutantdetector.Data;
 import com.detector.mutantdetector.business.ValidatorBusiness;
 import com.detector.mutantdetector.entiry.Dna;
 import com.detector.mutantdetector.entiry.DnaReq;
@@ -72,8 +73,8 @@ public class MutantDetectorCTRL {
 		dna.setMutant(validatorBusiness.isMutant(dnaReq.getDna().toArray(new String[0])));
 //
 //		dnaService.save(dna);
-
-//		System.out.println("Inserted with: "+dna.get_id());
+		Data.add(dna);
+		System.out.println("******************Tamaño de data: "+Data.getListDna().size());
 		if(dna.isMutant())
 //		if (validatorBusiness.isMutant(dnaReq.getDna().toArray(new String[0])))
 			response.setStatus(HttpServletResponse.SC_OK);

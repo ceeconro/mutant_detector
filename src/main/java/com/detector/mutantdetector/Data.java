@@ -8,11 +8,19 @@ import com.detector.mutantdetector.entiry.Dna;
 
 public class Data {
 	
-	private List<Dna> safeList = Collections.synchronizedList(new ArrayList<Dna>());
+	private static List<Dna> safeList = Collections.synchronizedList(new ArrayList<Dna>());
 	
 	
-	public void test() {
-		safeList.remove(0);
+	public static List<Dna> getListDna() {
+		return safeList;
+	}
+	
+	public static void add(Dna dna) {
+		safeList.add(dna);
+	}
+	
+	public static Dna remove(int index) {
+		return safeList.remove(index);
 	}
 
 }
