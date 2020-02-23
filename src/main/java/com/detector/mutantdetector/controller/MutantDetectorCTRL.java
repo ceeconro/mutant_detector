@@ -70,8 +70,8 @@ public class MutantDetectorCTRL {
 		Dna dna = new Dna();
 		dna.setDna(new ObjectMapper().writeValueAsString(dnaReq.getDna()));
 		dna.setMutant(validatorBusiness.isMutant(dnaReq.getDna().toArray(new String[0])));
-
-		dnaService.save(dna);
+//
+//		dnaService.save(dna);
 
 //		System.out.println("Inserted with: "+dna.get_id());
 		if(dna.isMutant())
