@@ -14,7 +14,15 @@
 1. Run `mvn spring-boot:run`
 
 ## Test
+1. Run `mvn test`
 
+## Coverage
+1. Run `mvn clean verify`
+2. Check `target/site/jacoco/index.html` for coverage results
+
+## Load Test
+1. Install [JMeter] (https://jmeter.apache.org/download_jmeter.cgi)
+2. Open `./load_test/DnaDetectorLoadTest.jmx` with JMeter and RUN
 
 ## Author
 * [Cesar Contreras](https://github.com/ceeconro)
