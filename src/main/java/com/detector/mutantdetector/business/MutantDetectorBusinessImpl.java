@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class ValidatorBusiness {
+public class MutantDetectorBusinessImpl implements MutantDetectorBusiness {
 
 	private static final String[] MUTAN_SEQUENCE = { "AAAA", "TTTT", "CCCC", "GGGG" };
 	
@@ -24,6 +24,7 @@ public class ValidatorBusiness {
 	 * @param dna
 	 * @return true if dna is mutant
 	 */
+	@Override
 	public boolean isMutant(String[] dna) {
 		Predicate<String> test = new ValidSequenceMutant(MUTAN_SEQUENCE);
 		int total = 0;

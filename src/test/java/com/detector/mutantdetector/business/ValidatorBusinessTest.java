@@ -44,7 +44,7 @@ class ValidatorBusinessTest {
 
 	@Test
 	void testIsMutantFalse() {
-		ValidatorBusiness vb = new ValidatorBusiness();
+		MutantDetectorBusiness vb = new MutantDetectorBusinessImpl();
 
 		assertFalse(vb.isMutant(new String[] { "TACGTT", "CTAGTA", "TAGCAG", "TGTTGT", "CAGTGC", "AGCCGA" }));
 		assertFalse(vb.isMutant(new String[] { "TACGTA", "CTAGTA", "TCCCAC", "AGCTGA", "TAGCGC", "TGCCGA" }));
@@ -53,7 +53,7 @@ class ValidatorBusinessTest {
 
 	@Test
 	void testIsMutantHorizontal() {
-		ValidatorBusiness vb = new ValidatorBusiness();
+		MutantDetectorBusiness vb = new MutantDetectorBusinessImpl();
 
 		assertTrue(vb.isMutant(new String[] { "TATTTT", "CACCTA", "TAAAAG", "TATTGT", "CAGTGC", "ATGCGA" }));
 		assertTrue(vb.isMutant(new String[] { "TATGTT", "CTTTTA", "TAGCAG", "TATTGT", "CAGTGC", "AGGGGA" }));
@@ -61,7 +61,7 @@ class ValidatorBusinessTest {
 
 	@Test
 	void testIsMutantVertical() {
-		ValidatorBusiness vb = new ValidatorBusiness();
+		MutantDetectorBusiness vb = new MutantDetectorBusinessImpl();
 
 		assertTrue(vb.isMutant(new String[] { "TACGTA", "CTAGTA", "TAGCAA", "TGTTGA", "TAGTGC", "TGCCGA" }));
 		assertTrue(vb.isMutant(new String[] { "TACGTC", "CGAGTA", "TGGCAA", "TGTTGA", "TGGTGC", "TGCCGA" }));
@@ -69,7 +69,7 @@ class ValidatorBusinessTest {
 
 	@Test
 	void testIsMutantOblique() {
-		ValidatorBusiness vb = new ValidatorBusiness();
+		MutantDetectorBusiness vb = new MutantDetectorBusinessImpl();
 
 		assertTrue(vb.isMutant(new String[] { "TACGTA", "CTAGTA", "TCCAAC", "AGCTAA", "TAGCGC", "TGCCGA" }));
 		assertTrue(vb.isMutant(new String[] { "TAAGTC", "GATAAG", "TGGCAA", "GTTTAA", "TGTTGC", "TGCTGA" }));
@@ -79,7 +79,7 @@ class ValidatorBusinessTest {
 
 	@Test
 	void testIsMutantMix() {
-		ValidatorBusiness vb = new ValidatorBusiness();
+		MutantDetectorBusiness vb = new MutantDetectorBusinessImpl();
 
 		assertTrue(vb.isMutant(new String[] { "TGTGTC", "GGGGAG", "TGGGTA", "GTACGT", "TCCGCt", "CCCTGA" }));
 		assertTrue(vb.isMutant(new String[] { "TGTGTC", "GAGGAG", "TAGGTA", "GAACGT", "TACGCt", "CCCTGA" }));

@@ -79,5 +79,23 @@ class StatsCTRLTest {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	void testBadRequetDnaData() {
+		DnaReq dnaReq = new DnaReq();
+		dnaReq.setDna(Arrays.asList("TGTGTC", "GAGGAG", "TAGAT", "GCACGT", "TACGCt", "CCCTGA"));
+
+		try {
+			for (int i = 0; i < 100; i++) {
+				this.mvc.perform(post("/mutant/").contentType(MediaType.APPLICATION_JSON)
+						.content(new ObjectMapper().writeValueAsString(dnaReq))).andDo(print())
+						.andExpect(status().isBadRequest());
+			}
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }
