@@ -16,7 +16,7 @@
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <stringProp name="LoopController.loops">10</stringProp>
+          <stringProp name="LoopController.loops">200</stringProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">10</stringProp>
         <stringProp name="ThreadGroup.ramp_time">1</stringProp>
@@ -33,12 +33,12 @@
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
     &quot;dna&quot;: [&#xd;
-        &quot;TAAAAC&quot;, &#xd;
-		&quot;GAGGAG&quot;, &#xd;
-		&quot;TTTTGA&quot;, &#xd;
-		&quot;GCACGT&quot;, &#xd;
-		&quot;TACGCt&quot;, &#xd;
-		&quot;CCCTGA&quot;&#xd;
+&quot;TACAAC&quot;, &#xd;
+&quot;GAGGAG&quot;, &#xd;
+&quot;TTGTGA&quot;, &#xd;
+&quot;GCACGT&quot;, &#xd;
+&quot;TACGCt&quot;, &#xd;
+&quot;CCCTGA&quot;&#xd;
     ]&#xd;
 }</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>

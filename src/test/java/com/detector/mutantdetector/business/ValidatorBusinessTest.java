@@ -85,4 +85,18 @@ class ValidatorBusinessTest {
 		assertTrue(vb.isMutant(new String[] { "TGTGTC", "GAGGAG", "TAGGTA", "GAACGT", "TACGCt", "CCCTGA" }));
 	}
 
+	@Test
+	void testNxN() {
+		MutantDetectorBusiness vb = new MutantDetectorBusinessImpl();
+
+		assertTrue(vb.isMutant(new String[] { "AAAAAAAA", "CGTACGTA", "TACGTACG", "CGTACGTA", "TACGTACG", "CGTACGTA",
+				"TACGTACG", "CGTACGTA" }));
+		assertTrue(vb.isMutant(new String[] { "TACGTACG", "CGTACGTA", "AAAACCCC", "CGTACGTA", "TACGTACG", "CGTACGTA",
+				"TACGTACG", "CGTACGTA" }));
+		assertTrue(vb.isMutant(new String[] { "AACGTACG", "CATAAGTA", "TCAATACG", "CTAACGTA", "TACGTACG", "CGTACGTA",
+				"TACGTACG", "CGTACGTA" }));
+		assertFalse(vb.isMutant(new String[] { "TACGTACG", "CGTACGTA", "AAAACCCG", "CGTACGTA", "TACGTACG", "CGTACGTA",
+				"TACGTACG", "CGTACGTA" }));
+	}
+
 }

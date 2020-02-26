@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Predicate;
+import java.util.function.Function;
 
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 /**
  * @author cesar_contreras
@@ -26,14 +27,14 @@ public class MutantDetectorBusinessImpl implements MutantDetectorBusiness {
 	 */
 	@Override
 	public boolean isMutant(String[] dna) {
-		Predicate<String> test = new ValidSequenceMutant(MUTAN_SEQUENCE);
+		Function<String, Integer> test = new ValidSequenceMutant(MUTAN_SEQUENCE);
 		int total = 0;
-		List<CountFormSequence<String[], Predicate<String>>> listValidators = new ArrayList<CountFormSequence<String[], Predicate<String>>>();
+		List<CountFormSequence<String[], Function<String, Integer>>> listValidators = new ArrayList<CountFormSequence<String[], Function<String, Integer>>>();
 		listValidators.add(new CountHorizontalFormSequence());
 		listValidators.add(new CountVerticalFormSequence());
 		listValidators.add(new CountObliqueFormSequence());
 
-		for (CountFormSequence<String[], Predicate<String>> val : listValidators) {
+		for (CountFormSequence<String[], Function<String, Integer>> val : listValidators) {
 			total = val.getMutantSequences(dna, test, total);
 			if (total > 1)
 				return true;
@@ -50,7 +51,7 @@ public class MutantDetectorBusinessImpl implements MutantDetectorBusiness {
  * @author cesar_contreras
  *
  */
-class ValidSequenceMutant implements Predicate<String> {
+class ValidSequenceMutant implements Function<String, Integer> {
 
 	String[] sequences;
 
@@ -58,13 +59,17 @@ class ValidSequenceMutant implements Predicate<String> {
 		this.sequences = sequences;
 	}
 
-	@Override
-	public boolean test(String t) {
+	public Integer apply(String t) {
+		int nTimes = 0;
+		int appears = 0;
+		if(t.length()/sequences[0].length() > 1) nTimes = (t.length()/sequences[0].length()) -1;
+		
 		for (int i = 0; i < sequences.length; i++) {
-			if (t.contains(sequences[i]))
-				return true;
+			appears += StringUtils.countOccurrencesOf(t, sequences[i]);
+			if (appears > nTimes)
+				break;
 		}
-		return false;
+		return appears;
 	}
 
 }
@@ -75,11 +80,17 @@ class ValidSequenceMutant implements Predicate<String> {
  * @author cesar_contreras
  *
  */
-class CountHorizontalFormSequence implements CountFormSequence<String[], Predicate<String>> {
+class CountHorizontalFormSequence implements CountFormSequence<String[], Function<String, Integer>> {
 
 	@Override
-	public int getMutantSequences(String[] dna, Predicate<String> test, int total) {
-		return ((int) Arrays.stream(dna).filter(s -> test.test(s)).count()) + total;
+	public int getMutantSequences(String[] dna, Function<String, Integer> test, int countMatchSequence) {
+
+		for (int i = 0; i < dna.length; i++) {
+			countMatchSequence += test.apply(dna[i]);
+			if (countMatchSequence > 1)
+				return countMatchSequence;
+		}
+		return countMatchSequence;
 	}
 
 }
@@ -90,18 +101,21 @@ class CountHorizontalFormSequence implements CountFormSequence<String[], Predica
  * @author cesar_contreras
  *
  */
-class CountVerticalFormSequence implements CountFormSequence<String[], Predicate<String>> {
+class CountVerticalFormSequence implements CountFormSequence<String[], Function<String, Integer>> {
 
 	@Override
-	public int getMutantSequences(String[] dna, Predicate<String> test, int countMatchSequence) {
-		int sequenceSize = dna[0].length();
-		for (int i = 0; i < sequenceSize; i++) {
+	public int getMutantSequences(String[] dna, Function<String, Integer> test, int countMatchSequence) {
+		//Var to know the array dimension
+//		int sequenceSize = dna[0].length();
+		
+		
+		for (int i = 0; i < dna.length; i++) {
 			StringBuffer sequence = new StringBuffer();
 			for (int j = 0; j < dna.length; j++) {
 				sequence.append(dna[j].charAt(i));
 			}
-			if (test.test(sequence.toString()))
-				countMatchSequence++;
+			
+			countMatchSequence += test.apply(sequence.toString());
 
 			if (countMatchSequence > 1)
 				return countMatchSequence;
@@ -119,10 +133,10 @@ class CountVerticalFormSequence implements CountFormSequence<String[], Predicate
  * @author cesar_contreras
  *
  */
-class CountObliqueFormSequence implements CountFormSequence<String[], Predicate<String>> {
+class CountObliqueFormSequence implements CountFormSequence<String[], Function<String, Integer>> {
 
 	@Override
-	public int getMutantSequences(String[] dna, Predicate<String> test, int countMatchSequence) {
+	public int getMutantSequences(String[] dna, Function<String, Integer> test, int countMatchSequence) {
 		// get horizontal size
 		int horizontalSize = dna[0].length();
 		countMatchSequence = findSequences(dna, test, 0, horizontalSize, countMatchSequence);
@@ -151,7 +165,7 @@ class CountObliqueFormSequence implements CountFormSequence<String[], Predicate<
 	 * @param horizontalSize
 	 * @return
 	 */
-	private int findSequences(String[] dna, Predicate<String> test, int initCicle, int horizontalSize,
+	private int findSequences(String[] dna, Function<String, Integer> test, int initCicle, int horizontalSize,
 			int countMatchSequence) {
 		for (int i = initCicle; i < horizontalSize-initCicle; i++) {
 			StringBuffer sequence = new StringBuffer();
@@ -172,8 +186,7 @@ class CountObliqueFormSequence implements CountFormSequence<String[], Predicate<
 				}
 
 			}
-			if (test.test(sequence.toString()))
-				countMatchSequence++;
+			countMatchSequence += test.apply(sequence.toString());
 
 			if (countMatchSequence > 1)
 				return countMatchSequence;

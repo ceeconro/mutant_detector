@@ -27,6 +27,7 @@ public class DnaRequestDataValidator implements RequestDataValidator<DnaReq, Pre
 		validators.add(DnaRequestValidators.HAS_MORE_THAN_ONE);
 		validators.add(DnaRequestValidators.ARRAY_IS_N_X_N);
 		validators.add(new DnaReqAllElementSameSizeValidator());
+		validators.add(new DnaReqAreNitrogenCharsValidator());
 	}
 
 	@Override
